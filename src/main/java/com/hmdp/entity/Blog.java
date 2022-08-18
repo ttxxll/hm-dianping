@@ -57,7 +57,7 @@ public class Blog implements Serializable {
     private String name;
 
     /**
-     * 是否点赞过了
+     * 当前用户是否点赞过了
      */
     @TableField(exist = false)
     private Boolean isLike;

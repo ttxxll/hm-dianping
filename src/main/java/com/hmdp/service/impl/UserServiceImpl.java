@@ -161,6 +161,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 4.往redis存入用户信息：会在拦截器那里刷新过期时间
         String token = UUID.randomUUID().toString(true); // 不带中划线的UUID
         UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
+
         // 4.1.注意userDTO中的id是Long类型，直接beanToMap得到的Map中的id字段也是Long，没法存储到Redis
         Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(),
                 CopyOptions.create()
