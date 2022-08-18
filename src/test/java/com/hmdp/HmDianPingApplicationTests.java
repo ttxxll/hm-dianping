@@ -30,7 +30,7 @@ class HmDianPingApplicationTests {
 
     @Test
     void testSaveShop2Redis() {
-        shopService.saveShop2Redis(7L, 10L);
+        shopService.saveShop2Redis(10L, 10L);
     }
 
     // 并发生成3w个id
