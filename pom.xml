@@ -20,7 +20,34 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+            <!--
+                这里SpringDataRedis的2.3.12版本并不支持Redis 6.2 提供的GEOSEARCH命令，因为它提供的spring-data-redis
+                和lettuce-core版本较低分别为2.3.9和5.3.7
+                因此需要我们修改下POM，排除自带的这两个依赖，然后再指定搞版本的依赖
+            -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.data</groupId>
+                    <artifactId>spring-data-redis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>lettuce-core</artifactId>
+                    <groupId>io.lettuce</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        <!--指定高版本的依赖-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+        <dependency>
+            <artifactId>lettuce-core</artifactId>
+            <groupId>io.lettuce</groupId>
+            <version>6.1.6.RELEASE</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
