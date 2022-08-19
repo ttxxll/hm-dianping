@@ -16,6 +16,8 @@ public class RespConstant {
 
     public static final String MESSAGE_MISSING_SHOPID = "店铺id不能为空";
 
+    public static final String MESSAGE_SAVE_BLOG_ERROR = "新增博客失败";
+
     public static final String MESSAGE_SYSTEM_ERROR = "系统异常";
 
     public static final String CODE_UNAUTHORIZED = "403";
