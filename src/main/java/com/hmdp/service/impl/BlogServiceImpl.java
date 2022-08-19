@@ -187,7 +187,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
         // 2.查询收件箱：ZREVRANGEBYSCORE key Max Min LIMIT offset count
         // RedisConstants.FEED_KEY + userId 相当于邮箱，每个用户都有一个ZSet，里面存着推送过来的博客id
-        String key = RedisConstants.FEED_KEY + "test";
+        String key = RedisConstants.FEED_KEY + userId;
         Set<ZSetOperations.TypedTuple<String>> typedTuples = stringRedisTemplate.opsForZSet()
                 .reverseRangeByScoreWithScores(key, 0, max, offset, 2);
 
