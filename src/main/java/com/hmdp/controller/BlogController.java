@@ -11,6 +11,7 @@ import com.hmdp.utils.UserHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -62,7 +63,8 @@ public class BlogController {
     }
 
     @GetMapping("/{id}")
-    public Result queryBlogById(@PathVariable("id") Long id) {
+    public Result queryBlogById(@PathVariable("id") Long id, HttpServletRequest request) {
+        String origin = request.getHeader("origin");
         return blogService.queryBlogById(id);
     }
 

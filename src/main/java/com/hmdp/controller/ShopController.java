@@ -66,6 +66,8 @@ public class ShopController {
      * 根据商铺类型分页查询商铺信息
      * @param typeId 商铺类型
      * @param current 页码
+     * @param x 用户定位经度
+     * @param y 用户定位维度
      * @return 商铺列表
      */
     @GetMapping("/of/type")
@@ -78,7 +80,6 @@ public class ShopController {
     ) {
         // 该接口允许跨域
         response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
-
         return shopService.queryShopByType(typeId, current, x, y);
     }
 
