@@ -24,4 +24,9 @@ public interface IUserService extends IService<User> {
     Result sendCodeByRedis(String phone, HttpSession session);
 
     Result loginByRedis(LoginFormDTO loginForm, HttpSession session);
+
+    Result sign();
+
+    Result signCount();
+
 }
