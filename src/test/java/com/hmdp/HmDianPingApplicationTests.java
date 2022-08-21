@@ -70,6 +70,9 @@ class HmDianPingApplicationTests {
     }
 
 
+    /**
+     * 按照商户类型分组，存储商户的地理坐标
+     */
     @Test
     void loadShopData() {
         // 1.查询店铺信息
@@ -97,5 +100,46 @@ class HmDianPingApplicationTests {
             // 3.5.批量添加
             stringRedisTemplate.opsForGeo().add(key, locations);
         }
+    }
+
+  /**
+   * 利用HyperLogLog结构测试统计UV和PV
+   * 插入100w 统计出99.7593W
+   *
+   * 执行之前的内存占用
+   * Redis 5:0>info memory
+   * "# Memory
+   * used_memory:771712
+   * used_memory_human:753.62K
+   *
+   * 执行之前的内存占用
+   * Redis 5:0>info memory
+   * "# Memory
+   * used_memory:787424
+   * used_memory_human:768.97K
+   *
+   * 内存占用：768.97 - 753.62 = 15.35k
+   * 误差：(100w - 99.7593W) / 100W = 0.00241 = 0.241%
+   */
+  @Test
+  void testHyperLogLog() {
+        // 1.准备数组，存储用户数据
+        String[] users = new String[1000];
+
+        // 数组下标
+        int index = 0;
+        for (int i = 1; i <= 1000000; i++) {
+            // 赋值
+            users[index++] = "user_" + i;
+            // 没100条发送一次
+            if (i % 1000 == 0) {
+                index = 0;
+                stringRedisTemplate.opsForHyperLogLog().add("hll1", users);
+            }
+        }
+
+        // 统计数量
+        Long size = stringRedisTemplate.opsForHyperLogLog().size("hll1");
+        System.out.println(size);
     }
 }
